@@ -6,6 +6,37 @@
     <title>Document</title>
 </head>
 <body>
+    <form id="form">
+        <label>Name</label>
+        <input type="text" id="name" placeholder="Username" required>
+        <label>Email ID</label>
+        <input type="mail" id="mail" placeholder="Email ID" required>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('mail').value;
+
+            // Check if data is already in local storage
+            let formData = localStorage.getItem('formData');
+
+            // If there's existing data, parse it; otherwise, create an empty array
+            formData = formData ? JSON.parse(formData) : [];
+
+            // Add the new form data to the array
+            formData.push({ name, email });
+
+            // Store the updated data back in local storage
+            localStorage.setItem('formData', JSON.stringify(formData));
+
+            document.getElementById('name').value = '';
+            document.getElementById('mail').value = '';
+        });
+    </script>
     
 </body>
 </html>
