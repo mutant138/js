@@ -4,15 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <style>
+        form {
+        background-color: orange;
+        text-align: center;
+        }
+        input{
+        font-size: 30px;
+        color: green;
+        width: 1000px;
+        }
+        </style>
 </head>
 <body>
     <form id="form">
         <label>Name</label>
+        <br>
         <input type="text" id="name" placeholder="Username" required>
+        <br>
         <label>Email ID</label>
+        <br>
         <input type="mail" id="mail" placeholder="Email ID" required>
+        <br>
         <input type="submit" value="Submit">
     </form>
+    <div id="userList">
+        <h2>User Details:</h2>
+        <ul id="userDetails"></ul>
+    </div>
     <script>
         document.getElementById('form').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -35,7 +55,24 @@
 
             document.getElementById('name').value = '';
             document.getElementById('mail').value = '';
+            displayUserDetails();
         });
+
+        function displayUserDetails() {
+            const userDetailsList = document.getElementById('userDetails');
+            userDetailsList.innerHTML = ''; // Clear the list
+
+            // Retrieve the user details from local storage
+            const formData = JSON.parse(localStorage.getItem('formData'));
+
+            if (formData) {
+                formData.forEach(user => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Name: ${user.name}, Email: ${user.email}`;
+                    userDetailsList.appendChild(listItem);
+                });
+            }
+        }
     </script>
     
 </body>
