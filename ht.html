@@ -73,6 +73,17 @@
                 });
             }
         }
+        function deleteUser(index) {
+            let formData = localStorage.getItem('formData');
+            formData = formData ? JSON.parse(formData) : [];
+
+            // Remove the user data at the specified index
+            if (index >= 0 && index < formData.length) {
+                formData.splice(index, 1);
+                localStorage.setItem('formData', JSON.stringify(formData));
+                displayUserDetails(); // Refresh the displayed user list
+            }
+        }
     </script>
     
 </body>
