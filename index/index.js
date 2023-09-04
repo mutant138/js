@@ -10,9 +10,29 @@ function saveToLocalStorage(event){
         Month
     };
 
-    localStorage.setItem(obj.Expense, JSON.stringify(obj));
-    show(obj);
+    axios.post("https://crudcrud.com/api/61a31c28c6b04097a5341c0f6dd4613f/expenses", obj).then((response)=>{
+        show(response.data)
+        console.log(response)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+
+    //localStorage.setItem(obj.Expense, JSON.stringify(obj));
+    //show(obj);
+
 }
+window.addEventListener("DOMContentLoaded", ()=>{
+    axios.get("https://crudcrud.com/api/61a31c28c6b04097a5341c0f6dd4613f/expenses").then((response)=>{
+        console.log(response);
+        for(var i=0;i<response.data.length;i++){
+            show(response.data[i])
+        }
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
 
 function show(obj){
     const parentElm = document.getElementById("List");
